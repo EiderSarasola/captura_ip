@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura IP</title>
+    <script>
+        async function getIP() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('userIP').innerText = data.ip;
+        }
+
+        function sendIP() {
+            const userIP = document.getElementById('userIP').innerText;
+            // Aquí se envía la IP a Power Apps
+            window.parent.postMessage({ ip: userIP }, "*"); // Enviar IP a Power Apps
+        }
+    </script>
+</head>
+<body onload="getIP()">
+    <h1>Tu IP es: <span id="userIP"></span></h1>
+    <button onclick="sendIP()">Enviar IP</button>
+</body>
+</html>
